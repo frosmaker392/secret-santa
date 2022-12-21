@@ -1,0 +1,4 @@
+# Ignore pocketbase directory
+pb
+
+src/pico.min.css
