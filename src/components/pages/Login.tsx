@@ -1,47 +1,73 @@
+import { A } from '@solidjs/router'
 import { ClientResponseError } from 'pocketbase'
 import { Component, useContext } from 'solid-js'
 import { PocketBaseContext } from '../../providers/PocketBaseProvider'
-import { Optional } from '../../typeDefs'
-import Button from '../atoms/Button'
-import InputField from '../atoms/InputField'
+import { createForm, Form, Field, required } from '@modular-forms/solid'
 
-type InputRefOpt = Optional<HTMLInputElement>
+import Button from '../atoms/Button'
+import Input from '../atoms/Input'
+import useFormSubmit from '../../hooks/useFormSubmit'
+
+type LoginForm = {
+  usernameOrEmail: string
+  password: string
+}
 
 const Login: Component = () => {
-  let usernameRef: InputRefOpt, passwordRef: InputRefOpt
-
   const pb = useContext(PocketBaseContext)
+  const loginForm = createForm<LoginForm>()
 
-  const onLogin = async (e: Event) => {
-    e.preventDefault()
+  const onLogin = async (form: LoginForm) => {
+    const response = await pb()
+      .collection('users')
+      .authWithPassword(form.usernameOrEmail, form.password)
 
-    if (usernameRef && passwordRef) {
-      pb()
-        .collection('users')
-        .authWithPassword(usernameRef.value, passwordRef.value)
-        .then((res) => console.log(res))
-        .catch((err: ClientResponseError) => console.log(err))
-    }
+    console.log(response)
   }
 
   return (
     <main>
-      <form onSubmit={onLogin}>
-        <InputField
-          fieldName="Username"
-          name="username"
-          type="text"
-          ref={usernameRef}
-        />
-        <InputField
-          fieldName="Password"
+      <Form of={loginForm} onSubmit={onLogin}>
+        <Field
+          of={loginForm}
+          name="usernameOrEmail"
+          validate={[required('Username/email is required!')]}
+        >
+          {(field) => (
+            <Input
+              {...field.props}
+              type="text"
+              label="Username or email"
+              value={field.value}
+              error={field.error}
+            />
+          )}
+        </Field>
+        <Field
+          of={loginForm}
           name="password"
-          type="password"
-          ref={passwordRef}
-        />
+          validate={[required('Password is required!')]}
+        >
+          {(field) => (
+            <Input
+              {...field.props}
+              type="password"
+              label="Password"
+              value={field.value}
+              error={field.error}
+            />
+          )}
+        </Field>
 
-        <Button type="submit">Login</Button>
-      </form>
+        <Button
+          type="submit"
+          aria-busy={loginForm.submitting}
+          disabled={loginForm.submitting}
+        >
+          Login
+        </Button>
+        <A href="/register">Register</A>
+      </Form>
     </main>
   )
 }

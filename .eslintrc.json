@@ -21,7 +21,8 @@
   },
   "plugins": ["solid", "prettier"],
   "rules": {
-    "prettier/prettier": ["error"]
+    "prettier/prettier": ["error"],
+    "no-unused-vars": "off" // TODO: Redo the whole ESLint + Prettier setup
   },
   "settings": {
     "jest": {
