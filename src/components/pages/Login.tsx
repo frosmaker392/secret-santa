@@ -1,21 +1,16 @@
 import { A } from '@solidjs/router'
 import { Component, useContext } from 'solid-js'
 import { PocketBaseContext } from '../../providers/PocketBaseProvider'
-import { createForm, Form, Field, required } from '@modular-forms/solid'
+import { createForm } from '@modular-forms/solid'
 
-import Button from '../atoms/Button'
-import Input from '../atoms/Input'
-
-type LoginForm = {
-  usernameOrEmail: string
-  password: string
-}
+import LoginForm from '../organisms/LoginForm'
+import { LoginFormData } from '../../typeDefs'
 
 const Login: Component = () => {
   const pb = useContext(PocketBaseContext)
-  const loginForm = createForm<LoginForm>()
+  const loginForm = createForm<LoginFormData>()
 
-  const onLogin = async (form: LoginForm) => {
+  const onLogin = async (form: LoginFormData) => {
     const response = await pb()
       .collection('users')
       .authWithPassword(form.usernameOrEmail, form.password)
@@ -24,48 +19,11 @@ const Login: Component = () => {
   }
 
   return (
-    <main>
-      <Form of={loginForm} onSubmit={onLogin}>
-        <Field
-          of={loginForm}
-          name="usernameOrEmail"
-          validate={[required('Username/email is required!')]}
-        >
-          {(field) => (
-            <Input
-              {...field.props}
-              type="text"
-              label="Username or email"
-              value={field.value}
-              error={field.error}
-            />
-          )}
-        </Field>
-        <Field
-          of={loginForm}
-          name="password"
-          validate={[required('Password is required!')]}
-        >
-          {(field) => (
-            <Input
-              {...field.props}
-              type="password"
-              label="Password"
-              value={field.value}
-              error={field.error}
-            />
-          )}
-        </Field>
-
-        <Button
-          type="submit"
-          aria-busy={loginForm.submitting}
-          disabled={loginForm.submitting}
-        >
-          Login
-        </Button>
-        <A href="/register">Register</A>
-      </Form>
+    <main class="container">
+      <LoginForm form={loginForm} onLogin={onLogin} />
+      <p class="secondary">
+        Don't have an account? <A href="/register">Register</A>
+      </p>
     </main>
   )
 }

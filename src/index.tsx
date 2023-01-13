@@ -1,8 +1,10 @@
 import { render } from 'solid-js/web'
 
-import './pico.min.css'
 import { Router } from '@solidjs/router'
 import App from './App'
+
+import './pico.min.css'
+import './index.css'
 
 render(
   () => (
