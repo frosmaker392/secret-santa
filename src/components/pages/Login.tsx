@@ -1,12 +1,10 @@
 import { A } from '@solidjs/router'
-import { ClientResponseError } from 'pocketbase'
 import { Component, useContext } from 'solid-js'
 import { PocketBaseContext } from '../../providers/PocketBaseProvider'
 import { createForm, Form, Field, required } from '@modular-forms/solid'
 
 import Button from '../atoms/Button'
 import Input from '../atoms/Input'
-import useFormSubmit from '../../hooks/useFormSubmit'
 
 type LoginForm = {
   usernameOrEmail: string
