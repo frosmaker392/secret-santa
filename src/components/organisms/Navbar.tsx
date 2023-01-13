@@ -1,8 +1,10 @@
 import { A } from '@solidjs/router'
-import { Component, Show } from 'solid-js'
+import { Component } from 'solid-js'
+import NavbarOptions from '../molecules/NavbarOptions'
 
 interface NavbarProps {
   loggedIn: boolean
+  onLogout: () => void
 }
 
 const Navbar: Component<NavbarProps> = (props) => (
@@ -12,13 +14,10 @@ const Navbar: Component<NavbarProps> = (props) => (
         <A href="/">Secret Santa</A>
       </li>
     </ul>
-    <ul>
-      <li>
-        <Show when={props.loggedIn} fallback={<A href="/login">Login</A>}>
-          <A href="/profile">Profile</A>
-        </Show>
-      </li>
-    </ul>
+    <NavbarOptions
+      loggedIn={props.loggedIn}
+      onLogout={() => props.onLogout()}
+    />
   </nav>
 )
 

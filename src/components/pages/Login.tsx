@@ -21,7 +21,7 @@ const Login: Component = () => {
   return (
     <article>
       <LoginForm form={loginForm} onLogin={onLogin} />
-      <p class="secondary">
+      <p>
         Don't have an account? <A href="/register">Register</A>
       </p>
     </article>

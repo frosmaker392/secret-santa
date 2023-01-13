@@ -1,18 +1,11 @@
-import { createContext, ParentComponent } from 'solid-js'
+import { createContext } from 'solid-js'
 import PocketBase from 'pocketbase'
-
-interface PocketBaseProviderProps {
-  value: PocketBase
-}
+import { Provider } from '../typeDefs'
 
 export const PocketBaseContext = createContext(() => ({} as PocketBase))
 
-export const PocketBaseProvider: ParentComponent<PocketBaseProviderProps> = (
-  props
-) => {
-  return (
-    <PocketBaseContext.Provider value={() => props.value}>
-      {props.children}
-    </PocketBaseContext.Provider>
-  )
-}
+export const PocketBaseProvider: Provider<PocketBase> = (props) => (
+  <PocketBaseContext.Provider value={() => props.value}>
+    {props.children}
+  </PocketBaseContext.Provider>
+)
