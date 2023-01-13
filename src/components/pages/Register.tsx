@@ -17,12 +17,12 @@ const Register: Component = () => {
   })
 
   return (
-    <main class="container">
+    <article>
       <RegisterForm form={registerForm} onRegister={onRegister} />
       <p>
         Already have an account? <A href="/login">Login</A>
       </p>
-    </main>
+    </article>
   )
 }
 

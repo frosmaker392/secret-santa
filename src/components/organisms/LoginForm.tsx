@@ -2,7 +2,7 @@ import { Field, Form, FormState, required } from '@modular-forms/solid'
 import { Component } from 'solid-js'
 import { LoginFormData } from '../../typeDefs'
 import Button from '../atoms/Button'
-import Input from '../atoms/Input/Input'
+import Input from '../molecules/Input/Input'
 
 interface LoginFormProps {
   form: FormState<LoginFormData>

@@ -19,12 +19,12 @@ const Login: Component = () => {
   }
 
   return (
-    <main class="container">
+    <article>
       <LoginForm form={loginForm} onLogin={onLogin} />
       <p class="secondary">
         Don't have an account? <A href="/register">Register</A>
       </p>
-    </main>
+    </article>
   )
 }
 
