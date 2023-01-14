@@ -1,5 +1,7 @@
 node_modules
 
+dist
+
 # Pocketbase
 pb/pb_data
 

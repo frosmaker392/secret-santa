@@ -10,6 +10,7 @@ export default defineConfig({
       localsConvention: 'camelCaseOnly',
     },
   },
+  base: './',
   plugins: [solidPlugin()],
   server: {
     port: 3000,
