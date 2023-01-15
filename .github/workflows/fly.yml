@@ -37,6 +37,7 @@ jobs:
           host: secret-santa-backend.internal
           username: root
           key: ${{ secrets.FLY_SSH_PRIVATE_KEY }}
+          passphrase: ${{ secrets.FLY_SSH_PASSPHRASE }}
           overwrite: true
           source: 'pb/pb_migrations/*.js'
           target: 'pb'
