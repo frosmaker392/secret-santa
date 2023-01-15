@@ -28,7 +28,7 @@ jobs:
       - run: sudo cp basic.conf /etc/wireguard
       - run: wg-quick up basic
 
-      - run: flyctl ssh console -C '[[ ! (-d pb/pb_migrations) ]] && mkdir pb/pb_migrations'
+      - run: flyctl ssh console -C '!([[ -d pb/pb_migrations ]]) && mkdir pb/pb_migrations'
         working-directory: ./pb
 
       - name: Copy migrations to server
@@ -40,7 +40,7 @@ jobs:
           passphrase: ${{ secrets.FLY_SSH_PASSPHRASE }}
           overwrite: true
           source: 'pb/pb_migrations/*.js'
-          target: 'pb'
+          target: 'pb/pb_migrations'
 
       - run: flyctl deploy --remote-only
         working-directory: ./pb
