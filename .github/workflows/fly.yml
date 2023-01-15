@@ -28,17 +28,19 @@ jobs:
       #- run: sudo cp basic.conf /etc/wireguard
       #- run: wg-quick up basic
 
-      - run: tar cvzf pb/migrations.tar.gz pb/pb_migrations
-
       #- run: flyctl proxy 10022:22
       #  working-directory: ./pb
+
+      - run: flyctl ssh console -C '[[ -d pb/pb_migrations ]] && mkdir pb/pb_migrations'
 
       - name: Copy migrations to server
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.FLY_ADDRESS }}
+          username: root
           key: ${{ secrets.FLY_SSH_PRIVATE_KEY }}
-          source: 'pb/migrations.tar.gz'
+          overwrite: true
+          source: 'pb/pb_migrations/*.js'
           target: 'pb'
 
       - run: flyctl deploy --remote-only
