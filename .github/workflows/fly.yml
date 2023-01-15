@@ -32,6 +32,7 @@ jobs:
       #  working-directory: ./pb
 
       - run: flyctl ssh console -C '[[ -d pb/pb_migrations ]] && mkdir pb/pb_migrations'
+        working-directory: ./pb
 
       - name: Copy migrations to server
         uses: appleboy/scp-action@master
