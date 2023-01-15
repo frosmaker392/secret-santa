@@ -28,6 +28,7 @@ jobs:
       #- run: sudo cp basic.conf /etc/wireguard
       #- run: wg-quick up basic
 
+      - run: ls -la
       - run: tar cvzf migrations.tar.gz pb_migrations
 
       - run: flyctl proxy 10022:22
