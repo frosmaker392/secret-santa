@@ -24,7 +24,7 @@ jobs:
       - name: Install WireGuard stuff
         run: sudo apt install wireguard-tools openresolv
 
-      - run: echo ${{ secrets.FLY_WIREGUARD_CONF }} > basic.conf
+      - run: echo "${{ secrets.FLY_WIREGUARD_CONF }}" > basic.conf
       - run: sudo cp basic.conf /etc/wireguard
       - run: wg-quick up basic
 
