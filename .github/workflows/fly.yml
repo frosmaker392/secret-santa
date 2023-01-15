@@ -38,7 +38,6 @@ jobs:
         with:
           host: ${{ secrets.FLY_ADDRESS }}
           key: ${{ secrets.FLY_SSH_PRIVATE_KEY }}
-          port: 10022
           source: 'pb/migrations.tar.gz'
           target: 'pb'
 
