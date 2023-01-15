@@ -1,0 +1,44 @@
+name: Fly Deploy
+on:
+  push:
+    branches: ['master']
+    paths:
+      - 'pb/*'
+  pull_request:
+    branches: ['master']
+    paths:
+      - 'pb/*'
+
+env:
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+jobs:
+  deploy:
+    name: Deploy backend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - run: cd pb
+      #- name: Install WireGuard stuff
+      #  run: sudo apt install wireguard-tools openresolv
+
+      #- run: echo ${{ secrets.FLY_WIREGUARD_CONF }} > basic.conf
+      #- run: sudo cp basic.conf /etc/wireguard
+      #- run: wg-quick up basic
+
+      - run: tar cvzf migrations.tar.gz pb_migrations
+
+      - run: flyctl proxy 10022:22
+
+      - name: Copy migrations to server
+        uses: appleboy/scp-action@master
+        with:
+          host: localhost
+          key: ${{ secrets.FLY_SSH_PRIVATE_KEY }}
+          port: 10022
+          source: 'migrations.tar.gz'
+          target: '.'
+
+      - run: flyctl deploy --remote-only

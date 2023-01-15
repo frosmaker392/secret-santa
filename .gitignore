@@ -4,6 +4,7 @@ dist
 
 # Pocketbase
 pb/pb_data
+pb/pocketbase
 
 # VS Code
 .vscode

@@ -7,7 +7,7 @@ import AppTemplate from './components/templates/AppTemplate'
 import useUserStore from './hooks/useUserStore'
 import { PocketBaseProvider } from './providers/PocketBaseProvider'
 
-const pb = new PocketBase('http://127.0.0.1:8090')
+const pb = new PocketBase(import.meta.env.VITE_POCKETBASE_URL)
 
 const App: Component = () => {
   const onLogout = () => pb.authStore.clear()
