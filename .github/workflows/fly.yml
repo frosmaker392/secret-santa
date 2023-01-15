@@ -30,16 +30,17 @@ jobs:
 
       - run: tar cvzf pb/migrations.tar.gz pb/pb_migrations
 
-      - run: flyctl proxy 10022:22
-        working-directory: ./pb
+      #- run: flyctl proxy 10022:22
+      #  working-directory: ./pb
 
       - name: Copy migrations to server
         uses: appleboy/scp-action@master
         with:
-          host: localhost
+          host: ${{ secrets.FLY_ADDRESS }}
           key: ${{ secrets.FLY_SSH_PRIVATE_KEY }}
           port: 10022
           source: 'pb/migrations.tar.gz'
           target: 'pb'
 
       - run: flyctl deploy --remote-only
+        working-directory: ./pb
