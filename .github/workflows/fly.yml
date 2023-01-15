@@ -21,6 +21,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: superfly/flyctl-actions/setup-flyctl@master
 
+      - run: ls -la
       - run: cd pb
       #- name: Install WireGuard stuff
       #  run: sudo apt install wireguard-tools openresolv
@@ -29,7 +30,6 @@ jobs:
       #- run: sudo cp basic.conf /etc/wireguard
       #- run: wg-quick up basic
 
-      - run: ls -la
       - run: tar cvzf migrations.tar.gz pb_migrations
 
       - run: flyctl proxy 10022:22
