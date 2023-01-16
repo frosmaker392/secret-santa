@@ -1,14 +1,13 @@
 name: Fly Deploy
 on:
   push:
-  #push:
-  #  branches: ['master']
-  #  paths:
-  #    - 'pb/*'
-  #pull_request:
-  #  branches: ['master']
-  #  paths:
-  #    - 'pb/*'
+    branches: ['master']
+    paths:
+      - 'pb/*'
+  pull_request:
+    branches: ['master']
+    paths:
+      - 'pb/*'
 
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
@@ -20,27 +19,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: superfly/flyctl-actions/setup-flyctl@master
-
-      - name: Install WireGuard stuff
-        run: sudo apt install wireguard-tools openresolv
-
-      - run: echo "${{ secrets.FLY_WIREGUARD_CONF }}" > basic.conf
-      - run: sudo cp basic.conf /etc/wireguard
-      - run: wg-quick up basic
-
-      - run: flyctl ssh console -C '!([[ -d pb/pb_migrations ]]) && mkdir pb/pb_migrations'
-        working-directory: ./pb
-
-      - name: Copy migrations to server
-        uses: appleboy/scp-action@master
-        with:
-          host: secret-santa-backend.internal
-          username: root
-          key: ${{ secrets.FLY_SSH_PRIVATE_KEY }}
-          passphrase: ${{ secrets.FLY_SSH_PASSPHRASE }}
-          overwrite: true
-          source: 'pb/pb_migrations/*.js'
-          target: 'pb/pb_migrations'
 
       - run: flyctl deploy --remote-only
         working-directory: ./pb
