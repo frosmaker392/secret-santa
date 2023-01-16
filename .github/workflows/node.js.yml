@@ -36,7 +36,11 @@ jobs:
           version: 7
           run_install: true
 
-      - run: npm run build --if-present
+      - name: Setup .env.production file
+        run: echo "VITE_POCKETBASE_URL=$BACKEND_URL" > .env.production
+
+      - name: Build
+        run: npm run build --if-present
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
