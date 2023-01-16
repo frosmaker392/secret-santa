@@ -1,0 +1,10 @@
+node_modules
+dist
+.dockerignore
+Dockerfile
+Dockerfile.prod
+
+# Unnecessary linting files
+.eslintrc.json
+.prettierignore
+.prettierrc

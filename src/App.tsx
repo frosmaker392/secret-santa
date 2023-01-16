@@ -7,9 +7,9 @@ import AppTemplate from './components/templates/AppTemplate'
 import useUserStore from './hooks/useUserStore'
 import { PocketBaseProvider } from './providers/PocketBaseProvider'
 
-const pb = new PocketBase(import.meta.env.VITE_POCKETBASE_URL)
-
 const App: Component = () => {
+  const pb = new PocketBase(import.meta.env.VITE_POCKETBASE_URL)
+
   const onLogout = () => pb.authStore.clear()
   const { getUser, removeChangeListener } = useUserStore(pb)
 
