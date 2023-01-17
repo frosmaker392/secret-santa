@@ -2,7 +2,8 @@ import { email, Field, Form, FormState, required } from '@modular-forms/solid'
 import { Component } from 'solid-js'
 import { RegisterFormData } from '../../typeDefs'
 import Button from '../atoms/Button'
-import Input from '../molecules/Input/Input'
+import PasswordField from '../molecules/PasswordField'
+import TextField from '../molecules/TextField'
 
 interface RegisterFormProps {
   form: FormState<RegisterFormData>
@@ -20,12 +21,11 @@ const RegisterForm: Component<RegisterFormProps> = (props) => (
       ]}
     >
       {(field) => (
-        <Input
-          {...field.props}
+        <TextField
+          field={field}
           type="email"
           label="Email"
-          value={field.value}
-          error={field.error}
+          placeholder="example@domain.com"
         />
       )}
     </Field>
@@ -34,41 +34,20 @@ const RegisterForm: Component<RegisterFormProps> = (props) => (
       name="username"
       validate={[required('Username is required!')]}
     >
-      {(field) => (
-        <Input
-          {...field.props}
-          type="text"
-          label="Username"
-          value={field.value}
-          error={field.error}
-        />
-      )}
+      {(field) => <TextField field={field} type="text" label="Username" />}
+    </Field>
+    <Field of={props.form} name="name">
+      {(field) => <TextField field={field} type="text" label="Display Name" />}
     </Field>
     <Field
       of={props.form}
       name="password"
       validate={[required('Password is required!')]}
     >
-      {(field) => (
-        <Input
-          {...field.props}
-          type="password"
-          label="Password"
-          value={field.value}
-          error={field.error}
-        />
-      )}
+      {(field) => <PasswordField field={field} label="Password" />}
     </Field>
     <Field of={props.form} name="passwordConfirm">
-      {(field) => (
-        <Input
-          {...field.props}
-          type="password"
-          label="Confirm password"
-          value={field.value}
-          error={field.error}
-        />
-      )}
+      {(field) => <PasswordField field={field} label="Confirm password" />}
     </Field>
 
     <Button

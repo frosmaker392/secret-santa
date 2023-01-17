@@ -2,7 +2,8 @@ import { Field, Form, FormState, required } from '@modular-forms/solid'
 import { Component } from 'solid-js'
 import { LoginFormData } from '../../typeDefs'
 import Button from '../atoms/Button'
-import Input from '../molecules/Input/Input'
+import PasswordField from '../molecules/PasswordField'
+import TextField from '../molecules/TextField'
 
 interface LoginFormProps {
   form: FormState<LoginFormData>
@@ -17,13 +18,7 @@ const LoginForm: Component<LoginFormProps> = (props) => (
       validate={[required('Username/email is required!')]}
     >
       {(field) => (
-        <Input
-          {...field.props}
-          type="text"
-          label="Username or email"
-          value={field.value}
-          error={field.error}
-        />
+        <TextField type="text" field={field} label="Username or Email" />
       )}
     </Field>
     <Field
@@ -31,15 +26,7 @@ const LoginForm: Component<LoginFormProps> = (props) => (
       name="password"
       validate={[required('Password is required!')]}
     >
-      {(field) => (
-        <Input
-          {...field.props}
-          type="password"
-          label="Password"
-          value={field.value}
-          error={field.error}
-        />
-      )}
+      {(field) => <PasswordField field={field} label="Password" />}
     </Field>
 
     <Button
