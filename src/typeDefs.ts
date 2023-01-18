@@ -1,11 +1,4 @@
-import { ParentComponent } from 'solid-js'
-
 export type Optional<T> = T | undefined
-
-interface ProviderProps<T> {
-  value: T
-}
-export type Provider<T> = ParentComponent<ProviderProps<T>>
 
 // TODO: Organize type definitions
 export type LoginFormData = {

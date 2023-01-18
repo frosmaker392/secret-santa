@@ -1,11 +1,8 @@
 import { A } from '@solidjs/router'
-import { Component } from 'solid-js'
-import NavbarOptions from '../molecules/NavbarOptions'
+import { Component, ComponentProps } from 'solid-js'
+import NavPartial from '../molecules/navbarPartials/NavPartial'
 
-interface NavbarProps {
-  loggedIn: boolean
-  onLogout: () => void
-}
+type NavbarProps = ComponentProps<typeof NavPartial>
 
 const Navbar: Component<NavbarProps> = (props) => (
   <nav class="container-fluid">
@@ -14,10 +11,10 @@ const Navbar: Component<NavbarProps> = (props) => (
         <A href="/">Secret Santa</A>
       </li>
     </ul>
-    <NavbarOptions
-      loggedIn={props.loggedIn}
-      onLogout={() => props.onLogout()}
-    />
+
+    <ul>
+      <NavPartial {...props} />
+    </ul>
   </nav>
 )
 

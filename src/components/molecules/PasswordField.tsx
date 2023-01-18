@@ -5,7 +5,6 @@ import TextInput from '../atoms/TextInput'
 import TextFieldProps from './TextFieldProps'
 
 import styles from './PasswordField.module.css'
-import textFieldStyles from './TextField.module.css'
 
 type PasswordFieldProps<F extends FieldValues, N extends FieldPath<F>> = Omit<
   TextFieldProps<F, N>,
@@ -37,11 +36,8 @@ const PasswordField = <F extends FieldValues, N extends FieldPath<F>>(
         />
         <i class={iconClass()} onClick={toggleType} />
       </div>
-
       <Show when={props.field.error}>
-        <FieldError errorId={errorName()} class={textFieldStyles.error}>
-          {props.field.error}
-        </FieldError>
+        <FieldError errorId={errorName()}>{props.field.error}</FieldError>
       </Show>
     </>
   )

@@ -1,21 +1,31 @@
-import { A } from '@solidjs/router'
+import { A, useNavigate } from '@solidjs/router'
 import { Component, useContext } from 'solid-js'
 import { PocketBaseContext } from '../../providers/PocketBaseProvider'
-import { createForm } from '@modular-forms/solid'
+import { createForm, setError } from '@modular-forms/solid'
 
 import LoginForm from '../organisms/LoginForm'
 import { LoginFormData } from '../../typeDefs'
+import useHideNav from '../../hooks/useHideNav'
 
 const Login: Component = () => {
+  useHideNav()
+
   const pb = useContext(PocketBaseContext)
   const loginForm = createForm<LoginFormData>()
 
-  const onLogin = async (form: LoginFormData) => {
-    const response = await pb()
-      .collection('users')
-      .authWithPassword(form.usernameOrEmail, form.password)
+  const navigate = useNavigate()
 
-    console.log(response)
+  const onLogin = async (form: LoginFormData) => {
+    try {
+      await pb()
+        .collection('users')
+        .authWithPassword(form.usernameOrEmail, form.password)
+
+      navigate('/')
+    } catch {
+      setError(loginForm, 'usernameOrEmail', 'Invalid login credentials!')
+      setError(loginForm, 'password', 'Invalid login credentials!')
+    }
   }
 
   return (

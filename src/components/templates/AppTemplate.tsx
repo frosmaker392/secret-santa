@@ -1,14 +1,11 @@
-import { Component, ParentProps } from 'solid-js'
+import { Component, ComponentProps, ParentProps } from 'solid-js'
 import Navbar from '../organisms/Navbar'
 
-interface AppTemplateProps extends ParentProps {
-  loggedIn: boolean
-  onLogout: () => void
-}
+type AppTemplateProps = ParentProps & ComponentProps<typeof Navbar>
 
 const AppTemplate: Component<AppTemplateProps> = (props) => (
   <>
-    <Navbar loggedIn={props.loggedIn} onLogout={() => props.onLogout()} />
+    <Navbar {...props} />
     <main class="container">{props.children}</main>
   </>
 )
