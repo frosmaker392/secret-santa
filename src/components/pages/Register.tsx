@@ -1,22 +1,47 @@
-import { createForm } from '@modular-forms/solid'
-import { A } from '@solidjs/router'
-import { Component, useContext } from 'solid-js'
-import useFormSubmit from '../../hooks/useFormSubmit'
-import useHideNav from '../../hooks/useHideNav'
-import { PocketBaseContext } from '../../providers/PocketBaseProvider'
-import { RegisterFormData } from '../../typeDefs'
-import RegisterForm from '../organisms/RegisterForm'
+import { createForm, setError } from '@modular-forms/solid'
+import { A, useNavigate } from '@solidjs/router'
+import { Component, onMount } from 'solid-js'
+import RegisterForm, { RegisterFormData } from '../organisms/RegisterForm'
+import useApiRegister from '../../hooks/api/useApiRegister'
+import useApiLogin from '../../hooks/api/useApiLogin'
+import { API_BASE_URL } from '../../constants/api'
+import { setAppStore } from '../../stores/app-store'
 
 const Register: Component = () => {
-  useHideNav()
+  const navigate = useNavigate()
 
-  const pb = useContext(PocketBaseContext)
   const registerForm = createForm<RegisterFormData>()
+  const register = useApiRegister(API_BASE_URL)
+  const login = useApiLogin(API_BASE_URL)
 
-  const onRegister = useFormSubmit(registerForm, async (form) => {
-    const response = await pb().collection('users').create(form)
+  const onRegister = async (form: RegisterFormData) => {
+    try {
+      const result = await register(form)
 
-    console.log(response)
+      if (result.type === 'success') {
+        await login({
+          username_or_email: form.email,
+          password: form.password,
+        })
+        navigate('/')
+      } else if (result.type === 'invalid_fields') {
+        for (const invalid_field of result.invalid_fields) {
+          setError(registerForm, invalid_field.name, invalid_field.message)
+        }
+      } else {
+        if (result.code === 'EMAIL_EXISTS') {
+          setError(registerForm, 'email', 'Email already exists!')
+        } else if (result.code === 'USERNAME_EXISTS') {
+          setError(registerForm, 'username', 'Username already exists')
+        }
+      }
+    } catch {
+      console.error('Failed to establish connection to API server!')
+    }
+  }
+
+  onMount(() => {
+    setAppStore('hideNavbar', true)
   })
 
   return (

@@ -1,15 +1,21 @@
 import { Component } from 'solid-js'
 import NavbarOption from '../../atoms/NavbarOption'
+import { AppRoutes } from '../../../constants/app-routes'
 
 interface NavPartialLoggedInProps {
-  onLogout: () => void
+  username: string
+  onClickLogout: () => void
 }
 
 const NavPartialLoggedIn: Component<NavPartialLoggedInProps> = (props) => (
   <>
-    <NavbarOption link="/profile">Profile</NavbarOption>
+    <NavbarOption link="/profile">@{props.username}</NavbarOption>
     <NavbarOption link="/groups">Groups</NavbarOption>
-    <NavbarOption link="/" onClick={() => props.onLogout}>
+    <NavbarOption
+      link={AppRoutes.ROOT}
+      onClick={() => props.onClickLogout()}
+      type="secondary"
+    >
       Logout
     </NavbarOption>
   </>

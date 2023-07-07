@@ -1,19 +1,36 @@
-import { A } from '@solidjs/router'
-import { Component, ComponentProps } from 'solid-js'
-import NavPartial from '../molecules/navbarPartials/NavPartial'
+import { Component, Switch, Match, ComponentProps } from 'solid-js'
+import NavPartialLoggedIn from '../molecules/navbarPartials/NavPartialLoggedIn'
+import NavPartialLoggedOut from '../molecules/navbarPartials/NavPartialLoggedOut'
+import NavbarOption from '../atoms/NavbarOption'
+import { AppRoutes } from '../../constants/app-routes'
 
-type NavbarProps = ComponentProps<typeof NavPartial>
+export type NavbarState = 'hidden' | 'logged-in' | 'logged-out'
+
+type NavbarLoggedInProps = ComponentProps<typeof NavPartialLoggedIn> & {
+  state: 'logged-in'
+}
+
+type NavbarProps =
+  | NavbarLoggedInProps
+  | {
+      state: 'logged-out' | 'hidden'
+    }
 
 const Navbar: Component<NavbarProps> = (props) => (
   <nav class="container-fluid">
     <ul>
-      <li>
-        <A href="/">Secret Santa</A>
-      </li>
+      <NavbarOption link={AppRoutes.ROOT}>Secret Santa</NavbarOption>
     </ul>
 
     <ul>
-      <NavPartial {...props} />
+      <Switch>
+        <Match when={props.state === 'logged-in'}>
+          <NavPartialLoggedIn {...(props as NavbarLoggedInProps)} />
+        </Match>
+        <Match when={props.state === 'logged-out'}>
+          <NavPartialLoggedOut />
+        </Match>
+      </Switch>
     </ul>
   </nav>
 )

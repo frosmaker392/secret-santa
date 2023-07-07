@@ -1,32 +1,39 @@
 import { A, useNavigate } from '@solidjs/router'
-import { Component, useContext } from 'solid-js'
-import { PocketBaseContext } from '../../providers/PocketBaseProvider'
+import { Component, onMount } from 'solid-js'
 import { createForm, setError } from '@modular-forms/solid'
 
-import LoginForm from '../organisms/LoginForm'
-import { LoginFormData } from '../../typeDefs'
-import useHideNav from '../../hooks/useHideNav'
+import LoginForm, { LoginFormData } from '../organisms/LoginForm'
+import useApiLogin from '../../hooks/api/useApiLogin'
+import { API_BASE_URL } from '../../constants/api'
+import { setAppStore } from '../../stores/app-store'
 
 const Login: Component = () => {
-  useHideNav()
-
-  const pb = useContext(PocketBaseContext)
   const loginForm = createForm<LoginFormData>()
 
   const navigate = useNavigate()
+  const login = useApiLogin(API_BASE_URL)
 
   const onLogin = async (form: LoginFormData) => {
     try {
-      await pb()
-        .collection('users')
-        .authWithPassword(form.usernameOrEmail, form.password)
+      const isAuthenticated = await login({
+        username_or_email: form.usernameOrEmail,
+        password: form.password,
+      })
 
-      navigate('/')
+      if (!isAuthenticated) {
+        setError(loginForm, 'usernameOrEmail', 'Invalid login credentials!')
+        setError(loginForm, 'password', 'Invalid login credentials!')
+      } else {
+        navigate('/')
+      }
     } catch {
-      setError(loginForm, 'usernameOrEmail', 'Invalid login credentials!')
-      setError(loginForm, 'password', 'Invalid login credentials!')
+      console.error('Failed to establish connection to API server!')
     }
   }
+
+  onMount(() => {
+    setAppStore('hideNavbar', true)
+  })
 
   return (
     <article>

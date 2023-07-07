@@ -13,7 +13,7 @@ export default defineConfig({
   base: './',
   plugins: [solidPlugin()],
   server: {
-    port: 3000,
+    port: 3001,
   },
   test: {
     environment: 'jsdom',

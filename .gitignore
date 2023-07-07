@@ -2,11 +2,6 @@ node_modules
 
 .env
 dist
-src/testScript.ts
-
-# Pocketbase
-pb/pb_data
-pb/pocketbase
 
 # VS Code
 .vscode

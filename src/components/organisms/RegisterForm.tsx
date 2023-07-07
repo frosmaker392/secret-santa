@@ -1,9 +1,17 @@
-import { email, Field, Form, FormState, required } from '@modular-forms/solid'
 import { Component } from 'solid-js'
-import { RegisterFormData } from '../../typeDefs'
+import { email, Field, Form, FormState, required } from '@modular-forms/solid'
+
 import Button from '../atoms/Button'
 import PasswordField from '../molecules/PasswordField'
 import TextField from '../molecules/TextField'
+
+export type RegisterFormData = {
+  email: string
+  username: string
+  name: string
+  password: string
+  passwordConfirm: string
+}
 
 interface RegisterFormProps {
   form: FormState<RegisterFormData>
