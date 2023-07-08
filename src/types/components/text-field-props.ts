@@ -1,6 +1,7 @@
 import { FieldPath, FieldState, FieldValues } from '@modular-forms/solid'
 import { ComponentProps } from 'solid-js'
-import TextInput from '../atoms/TextInput'
+
+import { TextInput } from 'components/atoms'
 
 type TextFieldProps<F extends FieldValues, N extends FieldPath<F>> = {
   field: FieldState<F, N>

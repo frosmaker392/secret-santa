@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src",
     "strict": true,
     "target": "ESNext",
     "module": "ESNext",
@@ -9,8 +10,5 @@
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "types": ["vite/client", "@testing-library/jest-dom"]
-  },
-  "ts-node": {
-    "esm": true
   }
 }

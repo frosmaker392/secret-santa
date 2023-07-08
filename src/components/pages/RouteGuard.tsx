@@ -20,7 +20,7 @@ const RouteGuard: Component = () => {
 
       setAppStore((state) => ({
         ...state,
-        loggedInUsername: currentUserResult.user.username,
+        currentUser: currentUserResult.user,
         hideNavbar: false,
       }))
     }

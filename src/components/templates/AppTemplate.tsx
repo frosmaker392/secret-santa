@@ -16,14 +16,14 @@ const getNavbarProps = (
       state: 'hidden',
     }
 
-  if (state.loggedInUsername === undefined)
+  if (state.currentUser === undefined)
     return {
       state: 'logged-out',
     }
 
   return {
     state: 'logged-in',
-    username: state.loggedInUsername,
+    username: state.currentUser.username,
     onClickLogout,
   }
 }

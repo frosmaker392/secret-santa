@@ -1,6 +1,7 @@
-import { A } from '@solidjs/router'
 import { Component, ParentProps } from 'solid-js'
-import { ColorType } from '../../types/design'
+import { A } from '@solidjs/router'
+
+import { ColorType } from 'types/design'
 
 interface NavbarOptionProps extends ParentProps {
   link: string
@@ -9,12 +10,8 @@ interface NavbarOptionProps extends ParentProps {
 }
 
 const NavbarOption: Component<NavbarOptionProps> = (props) => (
-  <li>
-    <A
-      href={props.link}
-      onClick={() => props.onClick}
-      class={props.type ?? 'primary'}
-    >
+  <li data-testid="navbar-option" onClick={() => props.onClick?.()}>
+    <A href={props.link} class={props.type ?? 'primary'}>
       {props.children}
     </A>
   </li>

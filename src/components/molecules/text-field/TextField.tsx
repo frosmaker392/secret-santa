@@ -1,8 +1,9 @@
 import { FieldPath, FieldValues } from '@modular-forms/solid'
 import { Show } from 'solid-js'
-import FieldError from '../atoms/FieldError'
-import TextInput from '../atoms/TextInput'
-import TextFieldProps from './TextFieldProps'
+
+import { FieldError, TextInput } from 'components/atoms'
+
+import TextFieldProps from 'types/components/text-field-props'
 
 const TextField = <F extends FieldValues, N extends FieldPath<F>>(
   props: TextFieldProps<F, N>
@@ -11,7 +12,10 @@ const TextField = <F extends FieldValues, N extends FieldPath<F>>(
 
   return (
     <>
-      <label for={props.field.name}>{props.label}</label>
+      <label data-testid="text-field-label" for={props.field.name}>
+        {props.label}
+      </label>
+
       <TextInput
         type={props.type}
         {...props.field.props}

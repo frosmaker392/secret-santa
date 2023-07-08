@@ -1,6 +1,7 @@
 /// <reference types="vitest" />
 /// <reference types="vite/client" />
 
+import path from 'path'
 import { defineConfig } from 'vite'
 import solidPlugin from 'vite-plugin-solid'
 
@@ -32,5 +33,13 @@ export default defineConfig({
   },
   resolve: {
     conditions: ['development', 'browser'],
+    alias: {
+      components: path.resolve(__dirname, './src/components'),
+      constants: path.resolve(__dirname, './src/constants'),
+      hooks: path.resolve(__dirname, './src/hooks'),
+      stores: path.resolve(__dirname, './src/stores'),
+      types: path.resolve(__dirname, './src/types'),
+      utils: path.resolve(__dirname, './src/utils'),
+    },
   },
 })

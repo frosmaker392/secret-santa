@@ -1,12 +1,12 @@
 import { Component, Switch, Match, ComponentProps } from 'solid-js'
-import NavPartialLoggedIn from '../molecules/navbarPartials/NavPartialLoggedIn'
-import NavPartialLoggedOut from '../molecules/navbarPartials/NavPartialLoggedOut'
-import NavbarOption from '../atoms/NavbarOption'
-import { AppRoutes } from '../../constants/app-routes'
+
+import { NavbarOption } from 'components/atoms'
+import { NavFragmentLoggedIn, NavFragmentLoggedOut } from 'components/molecules'
+import { AppRoutes } from 'constants/app-routes'
 
 export type NavbarState = 'hidden' | 'logged-in' | 'logged-out'
 
-type NavbarLoggedInProps = ComponentProps<typeof NavPartialLoggedIn> & {
+type NavbarLoggedInProps = ComponentProps<typeof NavFragmentLoggedIn> & {
   state: 'logged-in'
 }
 
@@ -25,10 +25,10 @@ const Navbar: Component<NavbarProps> = (props) => (
     <ul>
       <Switch>
         <Match when={props.state === 'logged-in'}>
-          <NavPartialLoggedIn {...(props as NavbarLoggedInProps)} />
+          <NavFragmentLoggedIn {...(props as NavbarLoggedInProps)} />
         </Match>
         <Match when={props.state === 'logged-out'}>
-          <NavPartialLoggedOut />
+          <NavFragmentLoggedOut />
         </Match>
       </Switch>
     </ul>

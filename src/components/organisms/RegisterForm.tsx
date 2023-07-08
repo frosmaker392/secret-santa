@@ -1,9 +1,8 @@
 import { Component } from 'solid-js'
 import { email, Field, Form, FormState, required } from '@modular-forms/solid'
 
-import Button from '../atoms/Button'
-import PasswordField from '../molecules/PasswordField'
-import TextField from '../molecules/TextField'
+import { Button } from 'components/atoms'
+import { PasswordField, TextField } from 'components/molecules'
 
 export type RegisterFormData = {
   email: string

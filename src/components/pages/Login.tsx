@@ -6,6 +6,7 @@ import LoginForm, { LoginFormData } from '../organisms/LoginForm'
 import useApiLogin from '../../hooks/api/useApiLogin'
 import { API_BASE_URL } from '../../constants/api'
 import { setAppStore } from '../../stores/app-store'
+import { AppRoutes } from 'constants/app-routes'
 
 const Login: Component = () => {
   const loginForm = createForm<LoginFormData>()
@@ -39,7 +40,7 @@ const Login: Component = () => {
     <article>
       <LoginForm form={loginForm} onLogin={onLogin} />
       <p>
-        Don't have an account? <A href="/register">Register</A>
+        Don't have an account? <A href={AppRoutes.REGISTER}>Register</A>
       </p>
     </article>
   )

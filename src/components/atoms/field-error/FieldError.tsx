@@ -1,4 +1,5 @@
 import { Component, ParentProps } from 'solid-js'
+
 import styles from './FieldError.module.css'
 
 interface FieldErrorProps extends ParentProps {
@@ -6,7 +7,7 @@ interface FieldErrorProps extends ParentProps {
 }
 
 const FieldError: Component<FieldErrorProps> = (props) => (
-  <small id={props.errorId} class={styles.fieldError}>
+  <small data-testid="field-error" id={props.errorId} class={styles.fieldError}>
     {props.children}
   </small>
 )

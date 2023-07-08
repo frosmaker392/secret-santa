@@ -1,6 +1,6 @@
-import { JSX } from 'solid-js'
+import { Component, JSX } from 'solid-js'
 
-export default interface InputProps {
+interface TextInputProps {
   ref: (element: HTMLInputElement) => void
   type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'number' | 'date'
   name: string
@@ -12,3 +12,16 @@ export default interface InputProps {
   onChange: JSX.EventHandler<HTMLInputElement, Event>
   onBlur: JSX.EventHandler<HTMLInputElement, FocusEvent>
 }
+
+const TextInput: Component<TextInputProps> = (props) => {
+  return (
+    <input
+      {...props}
+      data-testid="text-input"
+      aria-invalid={props.isError || undefined}
+      aria-errormessage={props.errorId}
+    />
+  )
+}
+
+export default TextInput

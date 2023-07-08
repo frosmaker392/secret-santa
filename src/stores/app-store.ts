@@ -1,7 +1,8 @@
 import { createStore } from 'solid-js/store'
+import { User } from '../types/api/user'
 
 export interface AppStore {
-  loggedInUsername?: string
+  currentUser?: User
   hideNavbar: boolean
 }
 
