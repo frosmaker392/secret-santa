@@ -1,16 +1,7 @@
-import { render } from 'solid-js/web'
+import '@picocss/pico';
+import { render } from 'solid-js/web';
 
-import { Router } from '@solidjs/router'
-import App from './App'
+import App from './App';
+import './index.css';
 
-import './pico.min.css'
-import './index.css'
-
-render(
-  () => (
-    <Router>
-      <App />
-    </Router>
-  ),
-  document.getElementById('root')!
-)
+render(() => <App />, document.getElementById('root')!);

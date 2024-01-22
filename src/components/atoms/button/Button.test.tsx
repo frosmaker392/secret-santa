@@ -1,23 +1,21 @@
-import { fireEvent, render } from '@solidjs/testing-library'
-import { describe, expect, it, vitest } from 'vitest'
+import { fireEvent, render, screen } from '@solidjs/testing-library';
+import { describe, expect, it, vitest } from 'vitest';
 
-import Button from './Button'
+import Button from './Button';
 
 describe('Button component', () => {
-  it('should be a button element with working props', () => {
-    const onClick = vitest.fn()
-    const textContent = 'Test text content'
+    it('should be a button element with working props', () => {
+        const onClick = vitest.fn();
+        const textContent = 'Test text content';
 
-    const { getByRole } = render(() => (
-      <Button onClick={onClick}>{textContent}</Button>
-    ))
+        render(() => <Button onClick={onClick}>{textContent}</Button>);
 
-    const button = getByRole('button')
+        const button = screen.getByRole('button');
 
-    expect(button).toHaveTextContent(textContent)
+        expect(button).toHaveTextContent(textContent);
 
-    fireEvent.click(button)
+        fireEvent.click(button);
 
-    expect(onClick).toHaveBeenCalled()
-  })
-})
+        expect(onClick).toHaveBeenCalled();
+    });
+});

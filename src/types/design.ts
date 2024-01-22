@@ -1,1 +1,1 @@
-export type ColorType = 'primary' | 'secondary' | 'contrast'
+export type UiVariant = 'primary' | 'secondary' | 'contrast';

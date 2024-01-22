@@ -1,11 +1,9 @@
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+export const API_BASE_URL = window.env.API_BASE_URL;
 
 export const ApiEndpoints = {
-  LOGIN: '/login',
-  REGISTER: '/register',
-  CURRENT_USER: '/current-user',
-} as const
+    CURRENT_USER: '/current-user',
+    OAUTH_CALLBACK: '/callback',
+    LOGOUT: '/logout',
+} as const;
 
-export const FORM_CONTENT_TYPE_HEADER = {
-  'Content-Type': 'application/x-www-form-urlencoded',
-} as const
+export const OAUTH_STATE_KEY = 'oauth_state';

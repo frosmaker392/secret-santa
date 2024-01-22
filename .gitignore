@@ -1,6 +1,7 @@
 node_modules
 
 .env
+assets/env.js
 dist
 
 # VS Code
